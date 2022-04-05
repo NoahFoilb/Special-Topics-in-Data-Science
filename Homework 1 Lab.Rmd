@@ -1,0 +1,76 @@
+---
+title: "Homework 1"
+author: "Noah Foilb"
+date: "9/4/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+# Load Dataset in from source & libraries
+```{r}
+source("http://www.openintro.org/stat/data/present.R") # The database
+source("http://www.openintro.org/stat/data/arbuthnot.R")
+library(ggplot2)
+library(dplyr)
+```
+
+#1 What years are included in this dataset? What are the dimensions of the data frame and what are the column names
+```{r}
+# Year ranges from 1940 - 2002
+min(present$year)
+max(present$year)
+
+# Dimensions are 63 rows and 3 columns
+dim(present)
+
+# The column names are year, boys, girls
+names(present)
+```
+
+
+#2 Compare the two datasets
+```{r}
+arbuthnot$boys + arbuthnot$girls
+```
+```{r}
+present$boys + present$girls
+```
+```{r}
+# I took each dataset and summed up the amount of total population each year recorded and the Present dataset has a much larger number of records. 
+```
+
+
+#3 Make a plot that displays the boy-to-girl ratio for every year in the data set. What do you see? Does Arbuthnot’s observation about boys being born in greater proportion than girls hold up in the U.S.? Include the plot in your response.   
+```{r}
+GB <- present$boys/present$girls
+ggplot(present, aes(x = year, y = GB))+ geom_point(colour="blue")
+
+# As you can see the ratio has decreased over time
+
+present$boys > present$girls
+
+# Arbuthnots obersavtion holds up as well!
+```
+
+
+# 4
+```{r}
+present %>%
+  mutate(Total = present$boys + present$girls) %>% 
+  arrange(desc(Total))
+
+# The year with the highest toal population was 1961
+```
+
+
+
+
+
+
+
+

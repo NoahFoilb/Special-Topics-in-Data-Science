@@ -1,0 +1,102 @@
+---
+title: "Homework 6"
+author: "Noah Foilb"
+date: "10/10/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Load Data and Libraries
+```{r}
+download.file("http://www.openintro.org/stat/data/mlb11.RData", destfile = "mlb11.RData")
+load("mlb11.RData")
+```
+
+# Finding a good predictor for runs?
+```{r}
+# I will first look at the correlations between runs and the other data  
+mlb11_numeric <- subset(mlb11, select = -c(team))
+cor(mlb11_numeric)
+
+# I firs though about using new_obs,new_slug,new_onbase as it has a high correlation but as these all depend on getting runs they would not be proper predictors. They need to be independant variables. I would want to use bat_avg as the predictor.
+```
+
+# Creation of the model
+```{r}
+my <- lm(bat_avg ~ runs, data = mlb11)
+summary(my)
+```
+
+
+# Visualize the model.
+```{r}
+plot(mlb11$bat_avg ~ mlb11$runs)
+abline(my)
+# This does seem to have a linear relationship or potentially clusters with outliers 
+```
+
+
+# 2 compare R^2
+# Their model
+```{r}
+m1 <- lm(at_bats ~ runs, data = mlb11)
+summary(m1)
+```
+
+# My model
+```{r}
+my <- lm(bat_avg ~ runs, data = mlb11)
+summary(my)
+```
+
+# Conclusion
+```{r}
+# Since my adj r^2 is 64% and theirs is 35% my model is better
+```
+
+
+#3 
+```{r}
+# As it turns out the bat_avg is the best fitting model of the five traditional varaibles as it has the highest adj^2 value 
+```
+
+
+#4 
+```{r}
+obs <-  lm(runs ~ new_obs, data = mlb11)
+summary(obs)
+plot(mlb11$runs ~ mlb11$new_obs)
+abline(obs)
+```
+
+```{r}
+# new obs is the best predictor as it has an incredibly high r^2 value but as I said before I do not believe it should be used as it is not independant of runs. 
+```
+
+
+#5 
+```{r}
+hist(obs$residuals)
+```
+
+
+```{r}
+qqnorm(obs$residuals)
+qqline(obs$residuals)
+```
+
+```{r}
+# it is faily normal for a dataset as we can see form the QQ plot. 
+# The histogram shows constant variability as well. 
+# The model checks off.
+```
+
+
+
+
+
+

@@ -1,0 +1,97 @@
+---
+title: "Homework 2"
+author: "Noah Foilb"
+date: "9/9/2021"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+# Source and Libraries
+```{r}
+source("http://www.openintro.org/stat/data/cdc.R")
+```
+
+#1 Make a scatterplot
+```{r}
+plot(cdc$weight,cdc$wtdesire)
+# As we can see in the graph most people want to weigh less then they actually are and as they get heavier the amount they desire slight increases as well.
+```
+
+#2 Create a new column 
+```{r}
+wdiff <- cdc$weight - cdc$wtdesire
+head(wdiff,10)
+```
+
+#3 Wdiff analysis 
+```{r}
+# wdiff is a numerical column which was created by the difference between their current weight and their desired weight. if the wdiff is zero they are fine with their weight. if wdiff is positive then they want to lose weight and if it is negative they want to gain weight
+```
+
+#4 wdiff more analysis 
+```{r}
+hist(wdiff,breaks = 100,xlim = c(-100,150))
+# This graph is unimodel right skewed with a center near -10 - 0.
+# This graph tells us a lot! if people want to gain weight it is not by a lot and if people want to lose weight it has a lot more variety and range to it. But as the difference gets greater the frequancy gets lower. 
+```
+
+#5 Numerical summaries 
+```{r}
+# mens wdiff
+men<- subset(cdc, gender == "m")
+wdiffmen <- men$weight - men$wtdesire
+summary(wdiffmen)
+boxplot(wdiffmen)
+```
+
+```{r}
+# womens wdiff
+women<- subset(cdc, gender == "f")
+wdiffwomen <- women$weight - women$wtdesire
+summary(wdiffwomen)
+boxplot(wdiffwomen)
+```
+
+#analysis
+```{r}
+# Men very much tend to view their body differently the mean for woman was almost doubled that of their men counterparts. Men also tend to want to gain weight more often then woman making the data more neutral for men. 
+```
+
+
+
+# 6 mean and std
+```{r}
+M <- mean(wdiff)
+S <- sd(wdiff)
+LB <- M - S     # Lower bound
+UB <- M + S     # Upper bound 
+
+# in order to find the percent of data within that range I will have to count the amount of data inbetween it
+total <- length(wdiff)
+total_in_range <- length(subset(wdiff,wdiff > LB & wdiff < UB))
+total_in_range/total*100
+
+# This shows that 82% of the data is within the first deviation. This is definitely not a normal bell curve. 
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,75 @@
+---
+title: "Homework 5 Lab"
+author: "Noah Foilb"
+date: "10/3/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Load Data + Libraries
+```{r}
+download.file("http://www.openintro.org/stat/data/nc.RData", destfile = "nc.RData")
+load("nc.RData")
+```
+
+# Question 1
+```{r}
+inference(y = nc$weeks, type = "ci",  method = "theoretical", est = "mean")
+
+# We just used inference as a 95% condidence test. 
+```
+
+
+# Question 2
+```{r}
+inference(y = nc$weeks, type = "ci",  method = "theoretical", est = "mean", conflevel = .9)
+
+```
+
+# Question 3
+```{r}
+inference(y = nc$weight, x = nc$mature, type = "ht", method = "theoretical", est = "mean", alternative =  "twosided", null = 0)
+```
+
+
+
+
+# Question 4
+```{r}
+by(nc$mage, nc$mature,summary)
+# As you can see the min age for mature mo mis 35 and max is 34 for younger moms 
+```
+
+
+# Question 5 
+```{r}
+#is the average weight gained by different for smoker and non smokers related?
+
+inference(y = nc$weight, x = nc$habit, type = "ht", method = "theoretical", est = "mean", alternative =  "twosided", null = 0)
+
+# As we can see they boxlpot share a similar range but nonsmokers has a larger top whisk and many more outlyers in the bottom. I would conclude that nonsmokers gain more weight but do not lose more weight. 
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

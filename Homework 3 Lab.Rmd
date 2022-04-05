@@ -1,0 +1,74 @@
+---
+title: "Chapter 4 HW"
+author: "Noah Foilb"
+date: "9/19/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# library and data
+```{r}
+download.file("http://www.openintro.org/stat/data/bdims.RData", destfile = "bdims.RData")
+load("bdims.RData")
+fdims <- subset(bdims, sex == 0)
+```
+
+# Question 1 
+```{r}
+#1 Plot letter B 
+#2 Plot letter C
+#3 Plot letter D
+#4 Plot letter A
+```
+
+
+# Question 2
+```{r}
+# I believe that since the histogram bins the data together for graph we cannont see what is accuratly going on inbetween each x axis coordinate. The QQ plot is more descriptive because of this. 
+```
+
+
+
+# Question 3
+```{r}
+qqnorm(fdims$kne.di)
+qqline(fdims$kne.di)
+# This is going to be right skewed you can tell since the Q-Q plot is more so above the line newar the ends
+```
+
+
+# Confirm data
+```{r}
+hist(fdims$kne.di)
+# findings were correct
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

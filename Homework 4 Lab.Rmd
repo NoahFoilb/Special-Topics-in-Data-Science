@@ -1,0 +1,69 @@
+---
+title: "Lab 5"
+author: "Noah Foilb"
+date: "9/26/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Library and Data
+```{r}
+download.file("http://www.openintro.org/stat/data/ames.RData", destfile = "ames.RData")
+load("ames.RData")
+
+area <- ames$Gr.Liv.Area
+price <- ames$SalePrice
+
+```
+
+# 1 Random sample 
+```{r}
+set.seed(100)
+Sample <-sample(price,50)
+summary(Sample)
+# mean would be 173831
+```
+
+# 2 
+```{r}
+sample_means50 <- rep(NA, 5000)
+
+
+for(i in 1:5000){
+  samp <- sample(price, 50)
+  sample_means50[i] <- mean(samp)
+}
+
+hist(sample_means50, breaks = 25)
+summary(price)
+
+# This is a unimodal symetric distribution similar to the sampling distribution. This has a very similar mean to the sample. 
+```
+
+
+#3 
+```{r}
+sample_means150<-rep(NA,5000)
+
+
+for(i in 1:5000){
+samp<-sample(price,150)
+sample_means150[i]<-mean(samp)
+}
+
+hist(sample_means150, breaks = 25)
+
+# This is the same as the 50 mean but with less spread. I would say they have similar means as the sample. 
+```
+
+#4
+```{r}
+#3 has less spread so it would be optimal as the variability would be less. 
+```
+
+
+
+

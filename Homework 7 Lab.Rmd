@@ -1,0 +1,161 @@
+---
+title: "Noah Foilb Lab 9"
+author: "Noah Foilb"
+date: "10/17/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Libraries and loading data
+```{r}
+download.file("http://www.openintro.org/stat/data/evals.RData", destfile = "evals.RData")
+load("evals.RData")
+library(ggplot2)
+```
+
+# Ex 1 
+```{r}
+# This is an observational study since there is no control group. We are only allowed to notice correlation not causeation. 
+```
+
+# Ex 2
+```{r}
+hist(evals$score)
+# evaluation scores are skewed left. This means students have more positive evaluations then negative for their teachers. This is what I would expect as there is a certain standard for professionsals, so I wouldnt expect an extremely low score. 
+```
+
+# Ex 3 
+```{r}
+plot(evals$bty_avg ~ evals$age)
+# There seems to be no correlation between beauty and age 
+```
+
+# EX4 
+```{r}
+plot(jitter(evals$score,factor=1.2) ~ jitter(evals$bty_avg,factor=1.2))
+# There is a lot more datapoints in the center of the distrubution then noticable in the other graph.
+```
+
+#EX 5
+```{r}
+m_bty <- lm(evals$score ~ evals$bty_avg)
+plot(jitter(evals$score,factor=1.2) ~ jitter(evals$bty_avg,factor=1.2))
+abline(m_bty)
+summary(m_bty)
+cor(evals$score, evals$bty_avg)
+
+# The p value is statistically signifigant but the R^2 value isnt great and the correlation isnt great either. I wouldnt say this is a practical predictor. 
+```
+
+
+# Ex 6 
+```{r}
+plot(m_bty$residuals ~ evals$bty_avg)
+abline(h = 0, lty = 4) 
+```
+
+```{r}
+hist(m_bty$residuals)
+```
+```{r}
+# The distributin is not normal so probably not.
+```
+
+# Ex 7
+```{r}
+m_bty_gen <- lm(score ~ bty_avg + gender, data = evals)
+summary(m_bty_gen)
+qqnorm(m_bty_gen$residuals)
+qqline(m_bty_gen$residuals)
+# as we can see the conidtions are not normal as it is not a normal distribution 
+```
+
+# E8
+```{r}
+summary(m_bty_gen)
+summary(m_bty)
+# As we can see bty_avg has not been effected thus making it still signifigant. 
+```
+
+# E9
+```{r}
+# Y = 3.74734 + .07416*bty_avf + 0.17239
+```
+
+# E10
+```{r}
+m_bty_rank <- lm(score ~ bty_avg + rank, data = evals)
+summary(m_bty_rank)
+# They create a new "Predictor" that when it is true it becomes a one and it effects the data. This alone does not effect the signifigance. 
+```
+
+# E11
+```{r}
+# I would day the number of professors as this is not a quality of beauty.
+```
+
+# E12
+```{r}
+m_full <- lm(score ~ rank + ethnicity + gender + language + age + cls_perc_eval 
+             + cls_students + cls_level + cls_profs + cls_credits + bty_avg 
+             + pic_outfit + pic_color, data = evals)
+summary(m_full)
+# As we can see the number of professors to be PR = .77 so it is definitely insignifigant 
+```
+
+# E13
+```{r}
+# As we can se the ethinicity not minority coefficient isnt signigicant from an initial perspective. This is because the Pr value is ~ .1
+```
+
+# E 14
+```{r}
+# The highest is num of prof
+m - lm(score ~ rank + ethnicity + gender + language + age + cls_perc_eval 
+             + cls_students + cls_level + cls_credits + bty_avg 
+             + pic_outfit + pic_color, data = evals)
+summary(m)
+
+# The adj R^2 value went up and the values changed for the better 
+```
+
+# E15
+```{r}
+best <- lm(score ~ ethnicity + gender + language + age + cls_perc_eval 
+             +   cls_credits + bty_avg + pic_color, data = evals)
+summary(best)
+```
+
+# E16
+```{r}
+qqnorm(best$residuals)
+qqline(best$residuals)
+# Yet again it is not normal so these are nor normal conditions 
+```
+
+# E17
+```{r}
+# No class courses are independant from the professor but I guess we wont know until we have the data to support our arguments.
+```
+
+# E18
+```{r}
+# Based of the model, we can find that younger male teaching a one credit corse as a english major and isnt a minority would be beautiful.
+```
+
+# E19
+```{r}
+# No because ethics and morals would get in the way. I wouldnt want to ridicule professors if they didnt fit the model because they are a minority. 
+```
+
+
+
+
+
+
+
+

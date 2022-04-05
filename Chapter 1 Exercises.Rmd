@@ -1,0 +1,42 @@
+---
+title: "Chapter Exercises"
+author: "Noah Foilb"
+date: "9/4/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Load source
+```{r}
+source("http://www.openintro.org/stat/data/arbuthnot.R")
+```
+
+
+# Exercise 1
+```{r}
+#What command would you use to extract just the counts of girls baptized?
+arbuthnot$girls
+```
+
+# Exercise 2
+```{r}
+plot(x = arbuthnot$year, y = arbuthnot$girls, type = "l")
+# There seemed to be a dip in the amount of girls baptized inbetween 1640 and 1660 which can be further looked into if wanted. It is a continually increasing over time except for the dip previously mentioned. This makes sense as the population will increase so will the amount of people getting baptized. I would like to see a graph where overall population is mapped in the background to see if they have similar trends. 
+```
+
+
+# Exercise 3
+```{r}
+plot(x = arbuthnot$year, y = arbuthnot$boys, type = "l")
+# This is basically the same graph but with greater numbers and similar trends. 
+```
+```
+
+
+
+
+
